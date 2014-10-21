@@ -1,0 +1,7 @@
+{  
+  "name": "Nemo_Eikon_Game",  
+  "displayName": "Nemo_Eikon_Game",  
+  "version" : "1.0.0",  
+  "description" : "Nemo Eikon Game",  
+  "defaultPlatform" : "NodeJs"  
+}  

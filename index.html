@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="nemoApp">
+<head>
+    <title>Welcome...</title>
+    <link rel="stylesheet" type="text/css" href="css/eikonwebui.css">
+    <script type="text/javascript" src="libs/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="libs/knockout-3.1.0.min.js"></script>
+    <script type="text/javascript" src="libs/jet-1.1.2/JET.js"></script>
+    <script type="text/javascript" src="libs/jet-1.1.2/plugins/Quotes.js"></script>
+    <script type="text/javascript" src="libs/jet-1.1.2/plugins/News.js"></script>
+    <script type="text/javascript" src="libs/log4javascript_uncompressed.js"></script>
+    <script type="text/javascript" src="scripts/capture_news.js"></script>
+    <script type="text/javascript" src="scripts/private_common.js"></script>
+    <script type="text/javascript" src="scripts/process_news_quotes.js"></script>
+    <script type="text/javascript" src="scripts/configure_data.js"></script>
+    <script type="text/javascript" src="scripts/create_key_word_list.js"></script>
+    <script type="text/javascript" src="scripts/create_quote_list.js"></script>
+    <script type="text/javascript" src="scripts/process_quote_price.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular/angular-animate.min.js"></script>
+    <script src="libs/angular/angular-sanitize.min.js"></script>
+    <script src="libs/ngmodules/angular-translate/angular-translate.min.js"></script>
+    <script src="libs/ngmodules/angular-file-upload/angular-file-upload.min.js"></script>
+    <script src="libs/ngmodules/angular-file-upload/angular-file-upload-shim.min.js"></script>
+    <script src="libs/ngmodules/ui-bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
+    <script src="libs/ngmodules/ui-router/angular-ui-router.min.js"></script>
+    <script src="libs/ngmodules/ng-grid/ng-grid.min.js"></script>
+    <script src="libs/ngmodules/ngStorage/ngStorage.min.js"></script>
+    <script src="libs/ngmodules/angular-dialog-service/dialogs.min.js"></script>
+    <script src="scripts/appCtrl.js"></script>
+    <script src="scripts/dataCloudSvc.js"></script>
+    <script src="scripts/jetSvc.js"></script>
+    <script src="scripts/logSvc.js"></script>
+    <script src="scripts/parserSvc.js"></script>
+</head>
+    <body ng-controller="appCtrl">
+        <ng-include src="'templates/quotelist.html'" />
+        <ng-include src="'templates/others.html'" />
+        <p style="display:none;">PageStatus : <textarea id="PageStatus" readonly="readonly" rows="10" cols="80"></textarea></p>
+    </body>
+</html>

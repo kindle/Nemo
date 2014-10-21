@@ -1,0 +1,64 @@
+﻿<div id="user_inputs_div" style="float:left;width:30%">
+    <div id="createQuoteListDiv">
+        <p>Create Quote List</p>
+        <p>
+            <input id="quoteSearchIpt" type="search" ng-disabled="newQuote.disabled" ng-model="newQuote.value" placeholder="Search..." required />
+            <button id="validateQuoteBtn" class="cta" ng-disabled="newQuote.disabled" ng-click="addQuoteAndGenerateKeyWords()">Add Quote And Generate KeyWords</button>
+        </p>
+
+        <form id="quoteListForm">
+            <p>TR RICS</p>
+            <ul>
+                <li ng-repeat="quote in quoteList">
+                    <input id="{{quote}}" name="quoteSearchList" type="checkbox" checked="checked" value="{{quote}}" />
+                    <label for="{{quote}}">{{quote}}</label>
+                    <input type="button" ng-click="openMajorNews(quote)" value="Major News" />
+                </li>
+            </ul>
+        </form>
+        <p><button id="submitQuoteListBtn" class="cta" click="submitQuoteListFn()">Submit QuoteList</button></p>
+    </div>
+    <hr />
+    <div id="keyWordsBoardDiv">
+        <p>Key Words Board</p>
+        <div id="NewOwnerShipDiv" class="keyWords">
+            <input id="NewOwnerShipCheckBox" type="checkbox" ng-checked="keywordChecked.ownership">
+            <label style="color:red;">Ownership</label>
+            <input id="NewOwnershipSharePct" ng-model="threshold.ownership" placeholder="Only accept values between 0.0 to 1.0"
+                   title="Shares percentage threshold.!Investors out of the top ten won't be considered" />
+            <hr />
+            <ul>
+                <li ng-repeat="item in ownershipList">
+                    <input id="{{item.refCode}}" name="ownershipSearchList" type="checkbox" ng-checked="{{item.checked}}" value="{{item.refName}}" />
+                    <label for="{{item.refCode}}">{{item.queryDes}}: {{item.refName}}</label>
+                </li>
+            </ul>
+        </div>
+
+        <div id="NewTRBCDiv" class="keyWords">
+            <input id="NewTRBCCheckBox" type="checkbox" ng-checked="keywordChecked.businessClassification">
+            <label style="color:red;">Business Classification</label><hr />
+            <ul>
+                <li ng-repeat="item in businessClassificationList">
+                    <input id="{{item.refCode}}" name="bcSearchList" type="checkbox" ng-checked="{{item.checked}}" value="{{item.refName}}" />
+                    <label for="{{item.refCode}}">{{item.queryDes}}: {{item.refName}}</label>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="NewIndexConstituentDiv" class="keyWords">
+            <input id="NewIndexConstituentCheckBox" type="checkbox" ng-checked="keywordChecked.index">
+            <label style="color:red;">Index Constituents</label>
+            <input id="NewIndexConstituentWeightThreshold" ng-model="threshold.index" placeholder="Only accept values between 0.0 to 1.0"
+                   title="Index weight threshold.!Null weight will be filtered when valid weight threshold provided" />
+            <hr />
+            <ul>
+                <li ng-repeat="item in indexList">
+                    <input id="{{item.refCode}}" name="indexSearchList" type="checkbox" ng-checked="{{item.checked}}" value="{{item.refName}}" />
+                    <label for="{{item.refCode}}">{{item.queryDes}}: {{item.refName}}</label>
+                </li>
+            </ul>
+        </div>
+        <br />
+    </div>
+</div>

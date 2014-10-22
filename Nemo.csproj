@@ -438,7 +438,8 @@
     <Content Include="libs\log4javascript_uncompressed.js" />
     <Content Include="scripts\process_news_quotes.js" />
     <Content Include="scripts\process_quote_price.js" />
-    <Content Include="templates\quoteList.html" />
+    <Content Include="templates\keyword.html" />
+    <Content Include="templates\news.html" />
     <Content Include="templates\others.html" />
   </ItemGroup>
   <ItemGroup>

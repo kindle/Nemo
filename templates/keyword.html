@@ -1,6 +1,6 @@
 ﻿<div id="user_inputs_div" style="float:left;width:30%">
     <div id="createQuoteListDiv">
-        <p>Create Quote List</p>
+        <h1>Create Quote List</h1>
         <p>
             <input id="quoteSearchIpt" type="search" ng-disabled="newQuote.disabled" ng-model="newQuote.value" placeholder="Search..." required />
             <button id="validateQuoteBtn" class="cta" ng-disabled="newQuote.disabled" ng-click="addQuoteAndGenerateKeyWords()">Add Quote And Generate KeyWords</button>
@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </form>
-        <p><button id="submitQuoteListBtn" class="cta" click="submitQuoteListFn()">Submit QuoteList</button></p>
+        <p><button id="submitQuoteListBtn" class="cta" ng-click="submitQuotes()">Submit QuoteList</button></p>
     </div>
     <hr />
     <div id="keyWordsBoardDiv">
@@ -60,5 +60,28 @@
             </ul>
         </div>
         <br />
+    </div>
+</div>
+<div id="related_quotes_div" style="float:left;width:60%">
+    <div id="relatedCmpDiv">
+        <p>
+            Related Companies
+            <button id="calcualteHitScores" onclick="calculateKeyWordsHitScoresFn()">Calculate Hit Scores</button>
+            <progress id="calcualteHitScoresProgress" value="0"></progress>
+        </p>
+    </div>
+    <hr />
+    <div id="trNewsDiv">
+        <p>TR News for Selected Quotes</p>
+        <div id="topSelected" class="news">top</div>
+        <div id="basketSelected" class="news">basket</div>
+        <br />
+        <p>Top Reuters News for "china"</p>
+        <ul>
+            <li ng-repeat="news in topNewsList">
+                <label>{{news.date}} {{news.time}} - [{{news.source}}] 
+                <span ng-bind-html="news.header"></span></label><button ng-click="openNews(news.urn)">Details</button>
+            </li>
+        </ul>
     </div>
 </div>

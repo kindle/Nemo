@@ -1,6 +1,6 @@
-angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.main', 'ngGrid'])
-.controller("appCtrl", ['$scope', 'dialogs', 'dataCloudSvc', 'jetSvc', 'logSvc', 'parserSvc',
-    function ($scope, dialogs, dataCloudSvc, jetSvc, logSvc, parserSvc) {
+angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.main', 'ngGrid', 'ngSanitize'])
+.controller("appCtrl", ['$scope', 'dialogs', 'dataCloudSvc', 'jetSvc', 'logSvc', 'parserSvc', '$sce',
+    function ($scope, dialogs, dataCloudSvc, jetSvc, logSvc, parserSvc, $sce) {
         $scope.keywordChecked = { ownership: true, businessClassification: true, index: true };
         $scope.ownershipList = [];
         $scope.businessClassificationList = [];
@@ -113,5 +113,28 @@ angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.ma
         $scope.openMajorNews = function (quote) {
             jetSvc.openMajorNews(quote);
             logSvc.logFn("Open Major News: " + quote);
+        };
+        /////////////////////////////////////////////////////////////////////////
+        $scope.topNewsList = [];
+        jetSvc.getTopNews("china", function (command) {
+            logSvc.logFn("sappedndabc:" + command.h);
+            $scope.$apply(function () {
+                $scope.topNewsList.push(
+                    {
+                        date: command.d,
+                        time: command.t,
+                        source: command.src,
+                        header: $sce.trustAsHtml(command.h),
+                        urn: command.urn
+                    }
+                );
+            });
+        });
+        $scope.openNews = function (urn) {
+            jetSvc.openNews(urn);
+        };
+        /////////////////////////////////////////////////////////////////////////
+        $scope.submitQuotes = function() {
+            alert($scope.topNewsList);
         };
 }]);

@@ -116,20 +116,43 @@ angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.ma
         };
         /////////////////////////////////////////////////////////////////////////
         $scope.topNewsList = [];
-        jetSvc.getTopNews("china", function (command) {
-            logSvc.logFn("sappedndabc:" + command.h);
-            $scope.$apply(function () {
-                $scope.topNewsList.push(
-                    {
+        var appendCallback = function (command) {
+            logSvc.logFn("append:" + command.h);
+            $scope.$apply(
+                function() {
+                    $scope.topNewsList.push({
                         date: command.d,
                         time: command.t,
                         source: command.src,
                         header: $sce.trustAsHtml(command.h),
                         urn: command.urn
-                    }
-                );
+                    });
+                }
+           );
+        };
+        var insertCallback = function (command) {
+            logSvc.logFn("insert:" + command.h);
+            $scope.$apply(
+                function() {
+                    $scope.topNewsList.insertAt(command.i, {
+                        date: command.d,
+                        time: command.t,
+                        source: command.src,
+                        header: command.h,
+                        urn: command.urn
+                    });
+                }
+            );
+        };
+        var deleteCallback = function(command) {
+            logSvc.logFn("delete:" + command.h);
+            $scope.$apply(function() {
+                $scope.topNewsList.splice(command.i, 1);
             });
-        });
+        };
+
+        jetSvc.getTopNews("blackrock institutional trust company", appendCallback, insertCallback, deleteCallback);
+        
         $scope.openNews = function (urn) {
             jetSvc.openNews(urn);
         };

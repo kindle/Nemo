@@ -79,8 +79,8 @@
         <p>Top Reuters News for "china"</p>
         <ul>
             <li ng-repeat="news in topNewsList">
-                <label>{{news.date}} {{news.time}} - [{{news.source}}] 
-                <span ng-bind-html="news.header"></span></label><button ng-click="openNews(news.urn)">Details</button>
+                <button ng-click="openNews(news.urn)">Details</button> <label>{{news.date}} {{news.time}} - [{{news.source}}] 
+                <span ng-bind-html="news.header"></span></label>
             </li>
         </ul>
     </div>

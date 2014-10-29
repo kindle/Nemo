@@ -1,9 +1,9 @@
 angular.module("nemoApp")
-.factory("parserSvc", [function () {
+.factory("parserSvc", ["logSvc", function (logSvc) {
     return {
         ownershipParser: function(quotes, arr, sharePct) {
             var funName = "parseInvestorResponse";
-            logFn("start in " + funName + " with arr.length=" + arr.length);
+            logSvc.logFn("start in " + funName + " with arr.length=" + arr.length);
             var tmpArr = new Array(quotes.length);
 
             for(var i=0;i<quotes.length; i++) {
@@ -30,12 +30,12 @@ angular.module("nemoApp")
                 };
             }
   
-            logFn("end in " + funName + " with arr=" + JSON.stringify(tmpArr));
+            logSvc.logFn("end in " + funName + " with arr=" + JSON.stringify(tmpArr));
             return tmpArr; 
         },
         businessClassificationParser : function(quotes, arr) {
             var funName = "parseTRBCResponse";
-            logFn("start in " + funName + " with arr.length=" + arr.length);
+            logSvc.logFn("start in " + funName + " with arr.length=" + arr.length);
             var tmpArr = new Array(quotes.length);
 
 
@@ -68,12 +68,12 @@ angular.module("nemoApp")
             }
 
 
-            logFn("end in " + funName + " with arr=" + JSON.stringify(tmpArr));
+            logSvc.logFn("end in " + funName + " with arr=" + JSON.stringify(tmpArr));
             return tmpArr;
         },
         indexParser: function(quotes, arr, weightThreshold) {
           var funName = "parseIndexResponse";
-            logFn("start in " + funName + " with arr.length=" + JSON.stringify(arr));
+            logSvc.logFn("start in " + funName + " with arr.length=" + JSON.stringify(arr));
             var tmpArr = new Array(quotes.length);
   
 
@@ -99,7 +99,7 @@ angular.module("nemoApp")
                 };
             }
   
-            logFn("end in " + funName + " with arr=" + JSON.stringify(tmpArr));
+            logSvc.logFn("end in " + funName + " with arr=" + JSON.stringify(tmpArr));
             return tmpArr;
         }
     };

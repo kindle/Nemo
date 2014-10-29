@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.json" />
+    <Content Include="css\dashboard.css" />
     <Content Include="css\fonts\Cabin-Bold.ttf" />
     <Content Include="css\fonts\Cabin-Medium.ttf" />
     <Content Include="css\fonts\Cabin-Regular.ttf" />
@@ -433,11 +434,7 @@
     <Content Include="scripts\jetSvc.js" />
     <Content Include="scripts\dataCloudSvc.js" />
     <Content Include="scripts\appCtrl.js" />
-    <Content Include="scripts\configure_data.js" />
-    <Content Include="scripts\create_key_word_list.js" />
     <Content Include="libs\log4javascript_uncompressed.js" />
-    <Content Include="scripts\process_news_quotes.js" />
-    <Content Include="scripts\process_quote_price.js" />
     <Content Include="templates\keyword.html" />
     <Content Include="templates\news.html" />
     <Content Include="templates\others.html" />
@@ -455,11 +452,7 @@
     <Content Include="libs\jet-1.1.2\plugins\Settings.js" />
     <Content Include="libs\jquery-2.1.0.min.js" />
     <Content Include="libs\knockout-3.1.0.min.js" />
-    <Content Include="scripts\capture_news.js" />
-    <Content Include="scripts\create_quote_list.js" />
     <Content Include="scripts\main.js" />
-    <Content Include="scripts\private_common.js" />
-    <Content Include="scripts\private_entry.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -429,11 +429,11 @@
     <Content Include="libs\ngmodules\ui-router\angular-ui-router.min.js" />
     <Content Include="libs\ngmodules\ui-sortable\sortable.js" />
     <Content Include="libs\ngmodules\ui-tinymce\tinymce.js" />
+    <Content Include="scripts\appCtrl.js" />
     <Content Include="scripts\parserSvc.js" />
     <Content Include="scripts\logSvc.js" />
     <Content Include="scripts\jetSvc.js" />
     <Content Include="scripts\dataCloudSvc.js" />
-    <Content Include="scripts\appCtrl.js" />
     <Content Include="libs\log4javascript_uncompressed.js" />
     <Content Include="templates\keyword.html" />
     <Content Include="templates\news.html" />

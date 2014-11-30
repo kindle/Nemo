@@ -45,6 +45,19 @@
         </div>
     </tab>
     <tab heading="Investment Advisory">
-        
+        <div style="float:left;width:40%">
+            <div style="margin-left:10px;">
+                <input type="text" width="100" ng-model="compareQuotes.quote1" /> VS 
+                <input type="text" width="100" ng-model="compareQuotes.quote2" />
+            </div>
+            <div ng-repeat="item in compareQuoteData" ng-click="changeSelection(item)" style="padding: 5px; margin:10px; cursor: pointer; border: 1px solid #393939;">
+                {{item.Quote1}} VS {{item.Quote2}}
+            </div>
+        </div>
+        <div style="float:left;width:40%">
+            <div style="margin-top:5px;">
+                <button class="cta" ng-click="calculate()">Calculate</button>
+            </div>
+        </div>
     </tab>
 </tabset>

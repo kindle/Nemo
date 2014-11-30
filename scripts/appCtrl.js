@@ -1,6 +1,22 @@
 angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.main', 'ngGrid', 'ngSanitize'])
 .controller("appCtrl", ['$scope', 'dialogs', 'dataCloudSvc', 'jetSvc', 'logSvc', 'parserSvc', '$sce',
     function ($scope, dialogs, dataCloudSvc, jetSvc, logSvc, parserSvc, $sce) {
+        // tab Investment Advisory
+        $scope.compareQuotes = { quote1: "", quote2: "" };
+        // mock data should update this array dynamically
+        $scope.compareQuoteData = [
+            { Quote1: "IBM.N", Quote2: "GE" },
+            { Quote1: "IBM.N", Quote2: "000002.SZ" },
+            { Quote1: "GE", Quote2: "000002.SZ" }
+        ];
+        $scope.changeSelection = function (item) {
+            $scope.compareQuotes.quote1 = item.Quote1;
+            $scope.compareQuotes.quote2 = item.Quote2;
+        }
+        $scope.calculate = function () {
+            alert("todo:...");
+        }
+        // tab Information Dashboard
         $scope.selectedQuotes = [];
         $scope.quoteOptions = {
             data: 'quoteList',
@@ -55,11 +71,10 @@ angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.ma
             afterSelectionChange: function () {
 
             },
-
             columnDefs: [
                 {
                     field: 'Title', displayName: 'Title', enableCellEdit: false, width: 420,
-                    cellTemplate: '<span ng-click="openNews(row.Urn)" style="margin:5px;" ng-bind-html="COL_FIELD"></span>'
+                    cellTemplate: '<span ng-dblclick="openNews(row.Urn)" style="margin:5px;" ng-bind-html="COL_FIELD"></span>'
                 },
                 { field: 'Hot', displayName: 'Hot', enableCellEdit: false, visible: false },
                 {
@@ -338,4 +353,6 @@ angular.module("nemoApp", ['ui.router', 'ui.bootstrap', 'ngStorage', 'dialogs.ma
         $scope.openNews = function (urn) {
             jetSvc.openNews(urn);
         };
+
+        
 }]);

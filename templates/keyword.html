@@ -1,13 +1,13 @@
 ﻿<tabset>
     <tab heading="Information Dashboard">
-        <div style="float:left;width:300px;margin-right: 5px;">
+        <div style="float:left;width:30%;margin-right: 5px;">
             <div id="createQuoteListDiv">
                 <h1>Equity Watch List</h1>
                 <p>
                     <input type="search" ng-disabled="newQuote.disabled" ng-model="newQuote.value" placeholder="Input Quote..." required />
                     <button class="cta" ng-disabled="newQuote.disabled" ng-click="addQuote(newQuote.value)">Add Quote</button>
                     <button class="btn" ng-disabled="newQuote.disabled" ng-click="removeQuote()">Remove</button>
-                    <button class="btn" ng-click="showCmpView(selectedQuotes)">Show Company Overview</button>					  
+                    <button class="cta" ng-click="showCmpView(selectedQuotes)">Show Company Overview</button>					  
                 </p>
                 <div ng-grid="quoteOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:150px;"></div>
                 <!--<div ng-grid="item in quoteOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ quoteList.length * 30 + 50 }}px;" ng-click="showCmpOverview(item)"></div> -->
@@ -39,10 +39,10 @@
                     <button class="cta" ng-click="generateKeywords()">Generate Keywords</button>
                     <button class="btn" ng-click="removeKeyword()">Remove</button>
                 </div>
-                <div ng-grid="keywordOptions" style="margin: 2px; border: 1px solid gray; min-height: 280px;max-height:280px"></div>
+                <div ng-grid="keywordOptions" style="margin: 2px; border: 1px solid gray; min-height: 280px;height:{{ keywordOptions.length * 30 + 50 }}px;"></div>
             </div>
         </div>
-        <div style="float:left;width:600px;">
+        <div style="float:left;width:60%;">
             <h1>Top Related News</h1>
             <div style="margin-top:1px;">
                 <button class="cta" ng-click="generateNews()">Generate News</button>
@@ -50,34 +50,8 @@
             </div>
             <div ng-grid="newsOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:500px; height:{{ newsList.length * 30 + 50 }}px;"></div>
         </div>
-        <div style="float:left;width:600px;">
-            <script type="text/ng-template" id="companyOverview.html">
-                <div class="modal-header">
-                    <h3>Company Overview</h3>
-                </div>
-                <div class="modal-body">
-                    <h1>Company Overview</h1>
-                    <p>
-                        BusinessSummary
-                        <textarea ng_model="cmpBusinessSummaryData" style="margin:2px; border:1px solid gray; height:float"></textarea>
-                    </p>
-                    <p>
-                        BussinuessSegment
-                        <div ng-grid="cmpBusinessSegment" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:200px;"></div>
-                    </p>
-                    <p>
-                        GeogphicSegement
-                        <div ng-grid="cmpGeographicSegment" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:200px;"></div>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary cta" ng-click="closeWin()">CLOSE</button>
-                </div>
-            </script>
-        </div>
-    </tab>
-    <tab heading="Investment Advisory">
-        <div style="float:left;width:600px">
+        <div style="float:left;width:60%">
+            <h1>Investment Advisory</h1>
             <div style="margin-left:10px;">
                 <select ng-model="compareQuotes.quote1" ng-options="m.RIC for m in quoteList"></select>
                 <!--				<input type="text" width="100" ng-model="compareQuotes.quote1" />-->
@@ -101,19 +75,20 @@
 
             </div>
             <!--
-                        <div ng-repeat="item in compareQuoteData" ng-click="compareQuotesChangeSelection(item)" style="padding: 5px; margin:10px; cursor: pointer; border: 1px solid #393939;">
-                            {{item.Quote1}} VS {{item.Quote2}}
-                        </div> -->
+                    <div ng-repeat="item in compareQuoteData" ng-click="compareQuotesChangeSelection(item)" style="padding: 5px; margin:10px; cursor: pointer; border: 1px solid #393939;">
+                        {{item.Quote1}} VS {{item.Quote2}}
+                    </div> -->
             <hr /><br /><br />
             <hr />
             <div>
-                <div>Related Company Options : <input type="text" ng-model="compareQuoteData.length" />  
-                      <button class="btn" ng-click="showCmpView(compareQuoteDataSelected)">Show Company Overview</button>
+                <div>
+                    Related Company Options : <input type="text" ng-model="compareQuoteData.length" />
+                    <button class="cta" ng-click="showCmpView(compareQuoteDataSelected)">Show Company Overview</button>
                 </div>
                 <div ng-grid="compareQuoteDataOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:300px;height:{{ compareQuoteData.length * 30 + 50 }}px;"></div>
             </div>
         </div>
-        <div style="float:left;width:600px; margin-left: 10px;">
+        <div style="float:left;width:60%; margin-left: 10px;">
             <div style="margin-top:5px;">
                 <h1>General Statistics</h1>
                 <div ng-grid="commonStatistics" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ commonStatisticsData.length * 30 + 50 }}px;"></div>
@@ -150,6 +125,30 @@
                 <div ng-grid="priceStatisticValueRisks" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ priceStatisticValueRisksData.length * 30 + 50 }}px;"></div>
             </div>
         </div>
-
+        <div style="float:left;width:60%;">
+            <script type="text/ng-template" id="companyOverview.html">
+                <div class="modal-header">
+                    <h3>Company Overview</h3>
+                </div>
+                <div class="modal-body">
+                    <h1>Company Overview</h1>
+                    <p>
+                        BusinessSummary
+                        <textarea ng_model="cmpBusinessSummaryData" style="margin:2px; border:1px solid gray; height:float"></textarea>
+                    </p>
+                    <p>
+                        BussinuessSegment
+                        <div ng-grid="cmpBusinessSegment" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:200px;"></div>
+                    </p>
+                    <p>
+                        GeogphicSegement
+                        <div ng-grid="cmpGeographicSegment" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:200px;"></div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary cta" ng-click="closeWin()">CLOSE</button>
+                </div>
+            </script>
+        </div>
     </tab>
 </tabset>

@@ -1,6 +1,8 @@
 angular.module("nemoApp")
 .factory("jetSvc", ['logSvc', function (logSvc) {
+
     return {
+        
         openMajorNews: function (quote) {
             try {
                 if (JET.Entity != undefined && JET.Entity.RIC != undefined) {
@@ -23,16 +25,27 @@ angular.module("nemoApp")
                 //alert("in openCompany :" + ex)
             }
         },
-        getTopNews: function (keyword, onAppend, onInsert, onDelete) {
-            var newsAllSubscription = JET.News.create()
-  	            .newsExpression(keyword)
-  	            .topSize(1)
-  	            .basketSize(5)
-  	            .onAppend(onAppend)
-                .onInsert(onInsert)
-                .onDelete(onDelete)
-  	            .start();
+        getRelatedNews: function (keyword, onAppend, newsCnt) {
+
+            var newsSubscription = JET.News.get("nemoApp");
+            if ( keyword != null || newsSubscription == null) {
+                if ( newsSubscription != null ) { newsSubscription.stop(); }
+                else {
+				    newsSubscription = JET.News.create("nemoApp");
+                }
+                newsSubscription.newsExpression(keyword)
+  	                .topSize(0)
+  	                .basketSize(newsCnt)
+  	                .onAppend(onAppend);
+
+                newsSubscription.restart();                
+                newsSubscription.more(newsCnt);	
+            } else {
+                newsSubscription.more(newsCnt);			
+            }
+	
         },
+
         openNews: function(query) {
             JET.navigate({
                 name: "News",
@@ -42,6 +55,11 @@ angular.module("nemoApp")
                     }
                 ]
             });
+        },
+		
+        getUserID: function() {
+            return JET.getUserInfo().UUID;
         }
+		
     };
 }]);

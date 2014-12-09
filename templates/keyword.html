@@ -1,28 +1,34 @@
 ﻿<tabset>
     <tab heading="Information Dashboard">
-        <div style="float:left;width:30%;margin-right: 5px;">
+        <div style="float:left;width:300px;margin-right: 5px;">
             <div id="createQuoteListDiv">
                 <h1>Equity Watch List</h1>
                 <p>
                     <input type="search" ng-disabled="newQuote.disabled" ng-model="newQuote.value" placeholder="Input Quote..." required />
-                    <button class="cta" ng-disabled="newQuote.disabled" ng-click="addQuote()">Add Quote</button>
+                    <button class="cta" ng-disabled="newQuote.disabled" ng-click="addQuote(newQuote.value)">Add Quote</button>
                     <button class="btn" ng-disabled="newQuote.disabled" ng-click="removeQuote()">Remove</button>
+                    <button class="btn" ng-click="showCmpView(selectedQuotes)">Show Company Overview</button>					  
                 </p>
-                <div ng-grid="quoteOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ quoteList.length * 30 + 50 }}px;"></div>
+                <div ng-grid="quoteOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:150px;"></div>
+                <!--<div ng-grid="item in quoteOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ quoteList.length * 30 + 50 }}px;" ng-click="showCmpOverview(item)"></div> -->
             </div>
             <hr />
             <div>
                 <h1>Keyword List</h1>
+                <div>
+                    <input type="text" ng-model="userInputKeyword.value" ng-disabled="userInputKeyword.disabled" placeholder="User input keyword" required />
+                    <button class="cta" ng-click="addKeyword(userInputKeyword.value)">Add Keyword</button>
+                </div>
                 <div class="equal">
                     <div class="row">
-                        <div class="one">Ownership</div>
+                        <div class="one">Ownership Percentage</div>
                         <div class="two">
                             <input id="NewOwnershipSharePct" ng-model="threshold.ownership" placeholder="Only accept values between 0.0 to 1.0"
                                    title="Shares percentage threshold.!Investors out of the top ten won't be considered" />
                         </div>
                     </div>
                     <div class="row">
-                        <div class="one">Index Constituents</div>
+                        <div class="one">Index Weight</div>
                         <div class="two">
                             <input id="NewIndexConstituentWeightThreshold" ng-model="threshold.index" placeholder="Only accept values between 0.0 to 1.0"
                                    title="Index weight threshold.!Null weight will be filtered when valid weight threshold provided" />
@@ -33,31 +39,117 @@
                     <button class="cta" ng-click="generateKeywords()">Generate Keywords</button>
                     <button class="btn" ng-click="removeKeyword()">Remove</button>
                 </div>
-                <div ng-grid="keywordOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ keywordList.length * 30 + 50 }}px;"></div>
+                <div ng-grid="keywordOptions" style="margin: 2px; border: 1px solid gray; min-height: 280px;max-height:280px"></div>
             </div>
         </div>
-        <div style="float:left;width:60%">
-            <h1>Top Related Stories</h1>
-            <div style="margin-top:5px;">
+        <div style="float:left;width:600px;">
+            <h1>Top Related News</h1>
+            <div style="margin-top:1px;">
                 <button class="cta" ng-click="generateNews()">Generate News</button>
+                <button class="cta" ng-click="moreNews()">More News</button>
             </div>
-            <div ng-grid="newsOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ newsList.length * 30 + 50 }}px;"></div>
+            <div ng-grid="newsOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:500px; height:{{ newsList.length * 30 + 50 }}px;"></div>
+        </div>
+        <div style="float:left;width:600px;">
+            <script type="text/ng-template" id="companyOverview.html">
+                <div class="modal-header">
+                    <h3>Company Overview</h3>
+                </div>
+                <div class="modal-body">
+                    <h1>Company Overview</h1>
+                    <p>
+                        BusinessSummary
+                        <textarea ng_model="cmpBusinessSummaryData" style="margin:2px; border:1px solid gray; height:float"></textarea>
+                    </p>
+                    <p>
+                        BussinuessSegment
+                        <div ng-grid="cmpBusinessSegment" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:200px;"></div>
+                    </p>
+                    <p>
+                        GeogphicSegement
+                        <div ng-grid="cmpGeographicSegment" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:200px;"></div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary cta" ng-click="closeWin()">CLOSE</button>
+                </div>
+            </script>
         </div>
     </tab>
     <tab heading="Investment Advisory">
-        <div style="float:left;width:40%">
+        <div style="float:left;width:600px">
             <div style="margin-left:10px;">
-                <input type="text" width="100" ng-model="compareQuotes.quote1" /> VS 
-                <input type="text" width="100" ng-model="compareQuotes.quote2" />
+                <select ng-model="compareQuotes.quote1" ng-options="m.RIC for m in quoteList"></select>
+                <!--				<input type="text" width="100" ng-model="compareQuotes.quote1" />-->
+                VS
+                <input type="text" width="100" ng-model="compareQuotes.quote2.RIC" />
+                <div class="colorBlock-content content-spacer l-table">
+                    <div class="l-table-row calendar-table-row">
+                        <div class="l-table-cell global-cell-title">Price Period</div>
+                        <div class="l-table-cell global-cell-input2">
+                            <select ng-model="pricePeriodSelected" ng-options="m.value for m in pricePeriods"></select>
+                        </div>
+                    </div>
+                    <div class="l-table-row calendar-table-row">
+                        <div class="l-table-cell global-cell-title">Holding Weight</div>
+                        <div class="l-table-cell global-cell-input2">
+                            <input type="text" width="5" readonly="true" ng-model="holdingWeight[0]" /> vs <input type="text" width="5" readonly="true" ng-model="holdingWeight[1]" />
+                        </div>
+                    </div>
+                </div>
+                <button class="cta" ng-click="calculatePriceStatistics(compareQuotes, pricePeriodSelected)">Calculate Statistics (Price)</button><br />
+
             </div>
-            <div ng-repeat="item in compareQuoteData" ng-click="changeSelection(item)" style="padding: 5px; margin:10px; cursor: pointer; border: 1px solid #393939;">
-                {{item.Quote1}} VS {{item.Quote2}}
+            <!--
+                        <div ng-repeat="item in compareQuoteData" ng-click="compareQuotesChangeSelection(item)" style="padding: 5px; margin:10px; cursor: pointer; border: 1px solid #393939;">
+                            {{item.Quote1}} VS {{item.Quote2}}
+                        </div> -->
+            <hr /><br /><br />
+            <hr />
+            <div>
+                <div>Related Company Options : <input type="text" ng-model="compareQuoteData.length" />  
+                      <button class="btn" ng-click="showCmpView(compareQuoteDataSelected)">Show Company Overview</button>
+                </div>
+                <div ng-grid="compareQuoteDataOptions" style="margin: 2px; border: 1px solid gray; min-height: 95px; max-height:300px;height:{{ compareQuoteData.length * 30 + 50 }}px;"></div>
             </div>
         </div>
-        <div style="float:left;width:40%">
+        <div style="float:left;width:600px; margin-left: 10px;">
             <div style="margin-top:5px;">
-                <button class="cta" ng-click="calculate()">Calculate</button>
+                <h1>General Statistics</h1>
+                <div ng-grid="commonStatistics" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ commonStatisticsData.length * 30 + 50 }}px;"></div>
+            </div>
+            <div style="margin-top:5px;">
+                <h1>Price Statistics</h1>
+                <div class="colorBlock-content content-spacer l-table">
+                    <div class="l-table-row calendar-table-row">
+                        <div class="l-table-cell global-cell-title">SD of</div>
+                        <div class="l-table-cell global-cell-input">
+                            <input type="text" readonly="true" ng-model="priceStatistic.x" /> : <input type="text" readonly="true" ng-model="priceStatistic.xStandardDeviation" />
+                        </div>
+                    </div>
+                    <div class="l-table-row calendar-table-row">
+                        <div class="l-table-cell global-cell-title">SD of</div>
+                        <div class="l-table-cell global-cell-input">
+                            <input type="text" readonly="true" ng-model="priceStatistic.y" /> : <input type="text" readonly="true" ng-model="priceStatistic.yStandardDeviation" />
+                        </div>
+                    </div>
+                    <div class="l-table-row calendar-table-row">
+                        <div class="l-table-cell global-cell-title">Covariance</div>
+                        <div class="l-table-cell global-cell-input">
+                            <input type="text" readonly="true" ng-model="priceStatistic.covariance" />
+                        </div>
+                    </div>
+                    <div class="l-table-row calendar-table-row">
+                        <div class="l-table-cell global-cell-title">Volatility</div>
+                        <div class="l-table-cell global-cell-input">
+                            <input type="text" readonly="true" ng-model="priceStatistic.volatility" />
+                        </div>
+                    </div>
+                </div>
+                <label class="statisticsTitle">Risks</label><br>
+                <div ng-grid="priceStatisticValueRisks" style="margin: 2px; border: 1px solid gray; min-height: 95px; height:{{ priceStatisticValueRisksData.length * 30 + 50 }}px;"></div>
             </div>
         </div>
+
     </tab>
 </tabset>

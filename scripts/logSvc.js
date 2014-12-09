@@ -2,6 +2,8 @@ angular.module("nemoApp")
 .factory("logSvc", [function () {
     return {
         logFn : function (msg) {
+
+/*
             try {
                 if (log == undefined ) {
                     log = log4javascript.getLogger("main");
@@ -13,7 +15,10 @@ angular.module("nemoApp")
   
                 log.info('logFn - ' + msg); 
             }
-            catch(ex) {alert(ex);}
+            catch(ex) {alert(ex);} */
             }
-        }
+
+        } 
+        
+        
 }]);

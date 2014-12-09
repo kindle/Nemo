@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="nemoApp">
 <head>
-    <title>Welcome...</title>
+    <title>Welcome To Nemo Eikon Game</title>
     <link rel="stylesheet" type="text/css" href="css/eikonwebui.css">
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
     <script type="text/javascript" src="libs/jquery-2.1.0.min.js"></script>
@@ -23,16 +23,17 @@
     <script src="libs/ngmodules/ng-grid/ng-grid.min.js"></script>
     <script src="libs/ngmodules/ngStorage/ngStorage.min.js"></script>
     <script src="libs/ngmodules/angular-dialog-service/dialogs.min.js"></script>
+    <script src="libs/ngmodules/angular-strap/ui-bootstrap"></script>
     <script src="scripts/appCtrl.js"></script>
     <script src="scripts/dataCloudSvc.js"></script>
     <script src="scripts/jetSvc.js"></script>
     <script src="scripts/logSvc.js"></script>
     <script src="scripts/parserSvc.js"></script>
+    <script src="scripts/statisticSvc.js"></script>
 </head>
     <body ng-controller="appCtrl">
         <ng-include src="'templates/keyword.html'" />
         <br/>
-        <ng-include src="'templates/news.html'" />
         <ng-include src="'templates/others.html'" />
         <p style="display:none;">PageStatus : <textarea id="PageStatus" readonly="readonly" rows="10" cols="80"></textarea></p>
     </body>
